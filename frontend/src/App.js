@@ -12,7 +12,7 @@ import HomePage from './pages/Home';
 import NewEventPage from './pages/NewEvent';
 import RootLayout from './pages/Root';
 import { action as manipulateEventAction } from './components/EventForm';
-import AuthencticationPage from "./pages/Authentication";
+import AuthencticationPage, {action as authAction} from "./pages/Authentication";
 import NewsletterPage, { action as newsletterAction } from './pages/Newsletter';
 
 const router = createBrowserRouter([
@@ -39,33 +39,34 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <EventDetailPage />,
-                action: deleteEventAction,
+                action: deleteEventAction
               },
               {
                 path: 'edit',
                 element: <EditEventPage />,
-                action: manipulateEventAction,
-              },
-            ],
+                action: manipulateEventAction
+              }
+            ]
           },
           {
             path: 'new',
             element: <NewEventPage />,
-            action: manipulateEventAction,
+            action: manipulateEventAction
           },
-        ],
+        ]
       },
       {
         path: "/auth",
-        element: <AuthencticationPage />
+        element: <AuthencticationPage />,
+        action: authAction
       },
       {
         path: 'newsletter',
         element: <NewsletterPage />,
-        action: newsletterAction,
+        action: newsletterAction
       },
-    ],
-  },
+    ]
+  }
 ]);
 
 function App() {
