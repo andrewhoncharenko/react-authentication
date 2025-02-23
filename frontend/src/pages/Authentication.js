@@ -2,6 +2,7 @@ import { redirect } from 'react-router-dom';
 import AuthForm from '../components/AuthForm';
 
 function AuthenticationPage() {
+
   return <AuthForm />;
 }
 
@@ -34,7 +35,18 @@ export async function action({request}) {
   if(!response.ok) {
     throw new Response(JSON.stringify({message: "Could not aithenticate user."}), {status: 500});
   }
-  return redirect("/")
+  
+  const resData = await response.json();
+  const token = resData.token;
+
+  localStorage.setItem("token", token);
+
+  const expiration = new Date();
+  
+  expiration.setHours(expiration.getHours() + 1);
+  localStorage.setItem("expiration", expiration.toISOString());
+
+  return redirect("/");
 }
 
 export default AuthenticationPage;
